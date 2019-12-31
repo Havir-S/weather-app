@@ -1,3 +1,10 @@
 {
-  "name": "test"
+  "cities":[
+    "London","Bangkok","Paris","Dubai","Singapore","New York","Kuala Lumpur","Tokyo","Istanbul","Seoul","Antalya","Phuket","Mecca","Hong Kong","Milan","Palma de Mallorca","Barcelona","Pattaya","Osaka","Bali",
+    "Cairo","Athens","Moscow","Florence","Dublin","Chennai","Orlando","Madrid","Jaipur","Venice","Riyadh","Ho Chi Minh City","Johannesburg","Johor Bahru","Berlin","Vienna","Denpasar","Milan","Barcelona","Nara",
+    "Agra","Las Vegas","Los Angeles","Shanghai","Pattaya","Seoul","Amsterdam","Miami","Prague","Mumbai","Guangzhou","Taipepi","Antalya","Rome","Delhi","Warsaw","Istanbul","Phuket","Shenzhen","Kuala Lumpur",
+    "New York City","Cracov","Tirana","Andorra la Vella","Yerevan","Vienna","Baku","Minsk","Brussels","Sarajevo","Sofia","Zagreb","Nicosia","Copenhagen","Tallinn","Helsinki","Tbilisi","Budapest","Reykjavik",
+    "Nur-Sultan","Pristina","Riga","Vaduz","Vilnius","Luxembourg","Valletta","Chisinau","Monaco","Podgorica","Amsterdam","Skopje","Oslo","Warsaw","Lisbon","Bucharest","San Marino","Belgrade","Bratislava",
+    "Ljubljana","Madrid","Stockholm","Bern","Ankara","Kiev","Vatican City"
+  ]
 }
