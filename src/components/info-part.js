@@ -80,47 +80,65 @@ class SunriseAndDawn extends React.Component {
 class InfoPart extends React.Component {
 
   render() {
+    console.log(this.props.weatherObj);
+    let temperature,cloudiness,humidity,pressure,wind,sunrise,sunset,coordX,
+        coordY,description,flagID;
+
+    if(typeof this.props.weatherObj === 'object') {
+      let weatherObj = this.props.weatherObj;
+      temperature = weatherObj.main.temp.toFixed();
+      cloudiness = weatherObj.clouds.all;
+      humidity = weatherObj.main.humidity;
+      pressure = weatherObj.main.pressure;
+      wind = weatherObj.wind.speed;
+      sunrise = weatherObj.sys.sunrise;
+      sunset = weatherObj.sys.sunset;
+      coordX = weatherObj.coord.lon;
+      coordY = weatherObj.coord.lat;
+      description = weatherObj.weather[0].description;
+      flagID = weatherObj.weather[0].icon;
+    }
     return (
       <div className='info-part'>
       <p>Current Weather:</p>
       <p className="weather-description">
-        broken clouds
-        <img className="weather-icon" src={this.props.television} alt={this.props.television} />
+        {description}
+        <img className="weather-icon" src={`http://openweathermap.org/img/wn/${flagID}@2x.png`} alt='icon' />
       </p>
         <div className="info-scroll">
          <div className="info-grid-container">
          <GridElement imgSrc={thermometerImg}
                       description='Temperature'
-                      value='15'
+                      value={temperature}
                       classMore='span2-4'
                       sign='℃'
          />
          <GridElement imgSrc={cloudsImg}
                        description='Cloudiness'
-                       value='80'
+                       value={cloudiness}
                        classMore='span2-4'
                        sign='%'
         />
-        <SunriseAndDawn />
         <GridElement imgSrc={humidityImg}
                       description='Humidity'
-                      value='80'
+                      value={humidity}
                       classMore='span2-4'
                       sign='%'
         />
         <GridElement imgSrc={manometerImg}
                       description='Pressure'
-                      value='1034'
+                      value={pressure}
                       classMore='span2-4'
                       sign=""
         />
         <GridElement imgSrc={windyImg}
                       description='Wind'
-                      value='3.1'
+                      value={wind}
                       classMore='span2-4'
                       sign="m/s"
         />
-        <CoordinatesElement x='0.32' y='0.32' />
+        <SunriseAndDawn sunrise={sunrise} sunset={sunset} />
+        <CoordinatesElement x={coordX} y={coordY} />
 
 
          </div>

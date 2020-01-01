@@ -1,12 +1,5 @@
 import React from 'react';
 
-async function getAllCities() {
-  let cities = await fetch('https://raw.githubusercontent.com/Havir-S/weather-app/master/locations.json');
-  let citiesRes = await cities.json();
-  return Promise.resolve(citiesRes.cities);
-
-}
-
 class Proposition extends React.Component {
 
   render() {
@@ -22,9 +15,6 @@ class InputPart extends React.Component {
   constructor(props) {
     super(props);
     this.handleValueChange = this.handleValueChange.bind(this);
-    this.state = {
-      cities: getAllCities()
-    }
   }
 
   handleValueChange(e) {
@@ -32,13 +22,22 @@ class InputPart extends React.Component {
   }
 
   render() {
-
-    console.log(this.state.cities);
+    let flagValue = 'http://satyr.io/20x20?delay=3g';
+    let countryShort;
+    if (typeof this.props.flagValue === 'object') {
+      /*Could have done it with just taking the country's abbreviation and replacing it in some places, but
+        with what I had in mind(having a static default img) this would actually take more time */
+      flagValue = `http://satyr.io/80x60?flag=${this.props.flagValue.country}`;
+      countryShort = this.props.flagValue.country;
+    }
 
     return (
       <div className='input-part'>
         <div className="input-container">
-          <span className="input-placeholder">City</span>
+         {this.props.inputValue.length > 0 ?
+           <span className="input-placeholder dirty">City</span> :
+           <span className="input-placeholder">City...</span>
+         }
           <input className="main-input" type="text" onChange={this.handleValueChange}/>
           <div className="propositionsDiv">
             <Proposition value='Tokyo' />
@@ -51,8 +50,8 @@ class InputPart extends React.Component {
           }
 
           <div className="info-div">
-            <img className="country-flag" src="http://satyr.io/80x60?flag=jp" alt="country_flag" />
-            <p>JP</p>
+            <img className="country-flag" src={flagValue} alt="country_flag" />
+            <p>{countryShort}</p>
           </div>
         </div>
       </div>

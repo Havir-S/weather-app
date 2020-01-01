@@ -40,8 +40,15 @@ $rays: 16;
 				border-width:14px;
 				box-shadow:
 					4px 4px 4px 0px rgba(#333,0.4);
-				background:
-					linear-gradient(90deg, #da4453, #89216b);
+					background-color: #F90;
+					background-image: -webkit-linear-gradient(0deg,
+																								rgba(255, 255, 255, .2) 25%,
+																								transparent 25%,
+																								transparent 50%,
+																								rgba(255, 255, 255, .2) 50%,
+																								rgba(255, 255, 255, .2) 75%,
+																								transparent 75%,
+																								transparent);
 				animation: jelly .5s ease-in-out;
 			}
 
@@ -149,7 +156,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .main {
-  height: 823px;
+  height: 833px;
   display: block;
   margin: auto;
   width: 530px;
@@ -222,6 +229,7 @@ body::-webkit-scrollbar-thumb {
   }
   .input-part {
     margin-top: 20px;
+		margin-bottom: 10px;
     min-height: 80px;
     .input-container {
       width: 300px;
@@ -236,7 +244,8 @@ body::-webkit-scrollbar-thumb {
 				transform: translate(0,-50%);
 				background: transparent;
 				outline: 0;
-				border: 2px solid white;
+				border: 3px solid white;
+				border-radius: 5px;
 				height: 100%;
 				width: 80px;
 				color: white;
@@ -249,43 +258,50 @@ body::-webkit-scrollbar-thumb {
 				}
 			}
       input.main-input {
-        background: transparent;
+        background: rgba(150,150,150,.4);
         cursor: text;
-        border: 1px solid gray;
-        border-bottom: 3px solid green;
+        border: 0;
+        border-bottom: 7px solid orange;
         text-align: center;
         padding: 5px;
         width: 100%;
         font-size: 25px;
-        border-radius: 0 0 10% 10%;
+        border-radius: 25px 25px 10% 10%;
         z-index: 10;
         position: relative;
+				color: orange;
+				letter-spacing: 2px;
         &:focus {
-          background: linear-gradient(0deg, white, transparent);
+          background: lighten(rgba(150,150,150,.4),10%);
+					outline: 0;
+					box-shadow: 0 0 3px black;
         }
-        &::before {
-          content: "City";
-          display: block;
-          position: absolute;
-          top:45%;
-          left:50%;
-          transform: translate(-50%,-50%);
-        }
+				&:hover {
+					background: lighten(rgba(150,150,150,.4),10%);
+				}
+				&:active {
+					outline: 0;
+				}
+
       }
       .input-placeholder {
-        color: gray;
+        color: orange;
         position: absolute;
         left: 50%;
-        top: 45%;
-        font-size: 25px;
+        top: 50%;
+        font-size: 30px;
         border:1px solid transparent;
         transform: translate(-50%,-50%);
-        transition: all .4s;
+        transition: all .05s ease-in;
         z-index: 0;
-        display: none;
+				letter-spacing: 3px;
+				@include fontBig;
       }
       .dirty {
-        top: 100%;
+				color: #888;
+				font-size: 16px;
+        top: calc(100% + 5px);
+				transition: all .08s;
         transform: translate(-50%,0);
       }
       .propositionsDiv {
@@ -304,6 +320,7 @@ body::-webkit-scrollbar-thumb {
 				overflow: auto;
 				overflow-y: scroll;
         transition: all .3s;
+				display: none;
         .proposition {
           cursor: pointer;
           padding: 2px 2px 7px;
@@ -366,6 +383,7 @@ body::-webkit-scrollbar-thumb {
         height: 20px;
         line-height: 20px;
         vertical-align: middle;
+				font-size: 1px;
       }
       .country-flag[src=""] {
         display: none;

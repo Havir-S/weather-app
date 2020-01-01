@@ -7,15 +7,15 @@ class TopPart extends React.Component {
   }
 
   handleChange(e) {
-    this.props.changeLightMode(e.target.checked);
+    this.props.changeLightMode(e.target.checked.toString());
   }
 
   render() {
     const lightMode = this.props.lightMode;
     let lightModeP;
 
-    if (lightMode === true) {
-      lightModeP = <p className="light-mode">Light mode</p>
+    if (lightMode === "true") {
+      lightModeP = <p className="light-mode">Light mode</p>;
     } else {
       lightModeP = <p className="dark-mode">Dark mode</p>
     }
@@ -48,7 +48,7 @@ class TopPart extends React.Component {
             </div>
           </div>
         </div>
-          <h2><span>Weather App</span></h2>
+          <h2 onClick={this.props.checkSomething}><span>Weather App</span></h2>
           <div className="main-icon-container">
             <img className='main-icon' src={this.props.mainIcon} alt={this.props.mainIcon} />
           </div>
