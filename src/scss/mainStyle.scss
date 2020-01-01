@@ -1,1 +1,345 @@
 @import '_reset.scss';
+@import '_animations.scss';
+
+@mixin fontBig {
+  font-family: 'Acme',sans-serif;
+}
+
+@mixin fontSecond {
+  font-family: 'Anton', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  @include fontSecond;
+  cursor: default;
+}
+
+.wrapper {
+  width: 100%;
+  display: inline-block;
+  @include fontSecond;
+}
+
+body::-webkit-scrollbar {
+    width: 1em;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.main {
+  height: 823px;
+  display: block;
+  margin: auto;
+  width: 530px;
+  position: relative;
+  text-align: center;
+  background: rgb(34,193,195);
+  background:  url('../imgs/circle-blues.png'), linear-gradient(180deg, #3c1053, #ad5389);
+  background-blend-mode: color-dodge;
+  transition: all 1s;
+  .top-part {
+    nav {
+      .change-mode-div {
+        position: absolute;
+        height: 130px;
+        width: 130px;
+        right: 0;
+        top: 0;
+        background: red;
+      }
+      h2 {
+        color: white;
+        text-shadow: 0 0 2px black;
+        font-size: 42px;
+        padding-top: 10px;
+        margin: 15px;
+        @include fontBig;
+      }
+      .main-icon-container {
+        border: 5px solid orange;
+        width: 120px;
+        margin: auto;
+        transition: all .5s;
+        // opacity: 0;
+        // transform: rotate(-120deg);
+        &:hover {
+          border: 10px solid blue;
+          filter: drop-shadow(0 0 10px black);
+          opacity: 1;
+          transform: rotate(0deg);
+        }
+        border-radius: 50%;
+        .main-icon {
+          width: 100px;
+          display: block;
+          margin: auto;
+          padding: 15px;
+        }
+      }
+
+    }
+  }
+  .input-part {
+    margin-top: 20px;
+    min-height: 80px;
+    .input-container {
+      width: 300px;
+      margin: auto;
+      height: fit-content;
+      position: relative;
+      z-index: 9;
+      input.main-input {
+        background: transparent;
+        cursor: text;
+        border: 1px solid gray;
+        border-bottom: 3px solid green;
+        text-align: center;
+        padding: 5px;
+        width: 100%;
+        font-size: 25px;
+        border-radius: 0 0 10% 10%;
+        z-index: 10;
+        position: relative;
+        &:focus {
+          background: linear-gradient(0deg, white, transparent);
+        }
+        &::before {
+          content: "City";
+          display: block;
+          position: absolute;
+          top:45%;
+          left:50%;
+          transform: translate(-50%,-50%);
+        }
+      }
+      .input-placeholder {
+        color: gray;
+        position: absolute;
+        left: 50%;
+        top: 45%;
+        font-size: 25px;
+        border:1px solid transparent;
+        transform: translate(-50%,-50%);
+        transition: all .4s;
+        z-index: 0;
+      }
+      .dirty {
+        top: 100%;
+        transform: translate(-50%,0);
+      }
+      .propositionsDiv {
+        border: 2px solid rgba(150,150,150,1);
+        border-radius: 5px;
+        position: absolute;
+        top: calc(100% + 10px);
+        width: 100%;
+        background: white;
+        background: rgba(255,255,255,0.8);
+        backdrop-filter: blur(2px);
+        height: fit-content;
+        z-index: 10;
+        transition: all .3s;
+        .proposition {
+          cursor: pointer;
+          padding: 2px 2px 7px;
+          margin: 2px auto 5px;
+          border-bottom: 3px solid rgba(150,150,150,1);
+          transition: all .1s;
+          border-radius: 0 0 7% 7%;
+          height: 40px;
+          @include fadeIn;
+          &:hover {
+            background: rgba(255,255,255,1);
+          }
+          .proposition-span {
+            font-size: 24px;
+            line-height:33px;
+          }
+        }
+      }
+    }
+    .info-div {
+      margin: auto;
+      position: absolute;
+      top:calc(100% + 4px);
+      right: 0;
+      p {
+        display: inline-block;
+        margin-left: 5px;
+        line-height: 20px;
+        font-size: 20px;
+        vertical-align: middle;
+      }
+      .country-flag {
+        display: inline-block;
+        height: 20px;
+        line-height: 20px;
+        vertical-align: middle;
+      }
+      .country-flag[src=""] {
+        display: none;
+      }
+    }
+  }
+  .info-part {
+
+    .weather-description {
+      text-transform: uppercase;
+      font-size: 22px;
+      position: relative;
+      @include fontBig;
+      width: fit-content;
+      margin: 5px auto 0;
+      .weather-icon {
+        width: 35px;
+        vertical-align: bottom;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        left: calc(100% + 5px);
+      }
+    }
+    .info-scroll {
+      width: 70%;
+      margin: 10px auto;
+      height: fit-content;
+      background: rgba(150,150,150,.2);
+      @supports (backdrop-filter:blur(3px)) {
+        backdrop-filter: blur(15px);
+      }
+      .info-grid-container {
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        max-height: 500px;
+        height: 493px;
+        display: flex;
+        flex-direction: column;
+        .info-grid-element {
+          padding: 5px;
+          margin: 10px 0;
+          display: grid;
+          grid-template-columns: repeat(3,1fr);
+          justify-items: center;
+          align-items: center;
+          background: rgba(255,255,255,.2);
+          border-radius: 5px;
+          .coordinates-title {
+            margin: 0 0 5px;
+          }
+          &:hover {
+            background: rgba(255,255,255,.3);
+          }
+          .time-from-now {
+            font-size: 12px;
+            margin-top:5px;
+            color: #454545;
+          }
+          .time-sun {
+            margin-top: 3px;
+          }
+          .info-div {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            justify-self: flex-start;
+            .grid-element-value {
+              margin-left: 5px;
+              font-size: 30px;
+              .celsius {
+                color: black;
+                font-size: 25px;
+                vertical-align: baseline;
+                margin-left: 5px;
+              }
+            }
+            .grid-element-description {
+              font-size: 18px;
+              letter-spacing: 1px;
+            }
+          }
+          .span2-4 {
+            grid-column: 2 / 4;
+          }
+          .span3-4 {
+            grid-column: 3 / 4;
+          }
+          & * {
+
+          }
+          .info-grid-element-img {
+            width: 80px;
+          }
+        }
+        .sunriseSunset {
+          display:flex;
+          justify-content: space-around;
+        }
+        .info-grid-element:first-of-type {
+          margin-top: 0;
+        }
+        .info-grid-element:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+      .info-grid-container::-webkit-scrollbar {
+          width: 10px;
+      }
+      .info-grid-container::-webkit-scrollbar-thumb {
+        background-color: #F90;
+        background-image: -webkit-linear-gradient(45deg,
+                                              rgba(255, 255, 255, .2) 25%,
+                                              transparent 25%,
+                                              transparent 50%,
+                                              rgba(255, 255, 255, .2) 50%,
+                                              rgba(255, 255, 255, .2) 75%,
+                                              transparent 75%,
+                                              transparent);
+        border-radius: 25px;
+        padding: 0;
+        margin: 0;
+      }
+      .info-grid-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+    background: transparent;
+    border-radius: 15px;
+    &:hover {
+      background: #cccccc99;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+    }
+      }
+    }
+  }
+  .app-info-part {
+    border:12px solid #ad5389;
+    border-top:0;
+    border-right:0;
+    border-radius: 0 0 0 15%;
+    width: fit-content;
+    position: absolute;
+    top: 100%;
+    .api-part {
+      border-radius: 0 0 0 20px;
+      padding: 5px;
+      a {
+        display: block;
+        text-align: left;
+        text-decoration: none;
+        color: #333333;
+        cursor: pointer;
+        font-size: 15px;
+        margin: 2px 0;
+        &:hover {
+          color: #000;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
