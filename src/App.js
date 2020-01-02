@@ -143,7 +143,7 @@ class App extends React.Component {
                   weatherObj={this.state.weatherObj}/>
 
         <AppInfoPart />
-        
+
         {this.state.error === 1 ? <NoCity turnOffError={this.turnOffError} /> : <div></div>}
       </div>
     </div>

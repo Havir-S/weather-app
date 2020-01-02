@@ -143,7 +143,7 @@ class InfoPart extends React.Component {
 
   render() {
     let temperature,cloudiness,humidity,pressure,wind,sunrise,sunset,coordX,
-        coordY,description,flagID,name;
+        coordY,description,flagID,name,timezone;
 
     if(typeof this.props.weatherObj === 'object') {
       let weatherObj = this.props.weatherObj;
@@ -152,8 +152,9 @@ class InfoPart extends React.Component {
       humidity = weatherObj.main.humidity;
       pressure = weatherObj.main.pressure;
       wind = weatherObj.wind.speed;
-      sunrise = (weatherObj.sys.sunrise * 1000);
-      sunset = (weatherObj.sys.sunset * 1000);
+      timezone = weatherObj.timezone;
+      sunrise = ((weatherObj.sys.sunrise + timezone) * 1000);
+      sunset = ((weatherObj.sys.sunset + timezone) * 1000);
       coordX = weatherObj.coord.lon;
       coordY = weatherObj.coord.lat;
       description = weatherObj.weather[0].description;
