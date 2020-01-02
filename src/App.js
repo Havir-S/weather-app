@@ -5,6 +5,7 @@ import TopPart from './components/top-part.js';
 import InputPart from './components/input-part.js';
 import InfoPart from './components/info-part.js';
 import AppInfoPart from './components/app-info-part.js';
+import NoCity from './components/error.js';
 // https://openweathermap.org/weather-conditions TUTAJ JUZ SA IKONKI
 
 // fetch('https://raw.githubusercontent.com/Havir-S/weather-app/master/locations.json')
@@ -54,40 +55,14 @@ class App extends React.Component {
       lightMode: 1,
       input: "",
       weatherObj: "",
-      cities: []
+      cities: [],
+      error: 0
     };
     this.handleLightModeChange = this.handleLightModeChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.getNewCity = this.getNewCity.bind(this);
-    this.checkSomething = this.checkSomething.bind(this);
-  }
-
-  handleLightModeChange(e) {
-    this.setState({lightMode: e});
-    if(localStorage) {
-      localStorage.lightMode = e;
-    }
-  }
-
-  handleInputChange(input) {
-    this.setState({input});
-  }
-
-
-  checkSomething() {
-    console.log(this.state.city);
-  }
-
-  async getNewCity() {
-    let newCity = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.input}&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric`);
-    let newCityRes = await newCity.json();
-    this.setState({weatherObj: newCityRes});
-
-    if (localStorage) {
-      if (localStorage.city) {
-        localStorage.city = newCityRes.city;
-      }
-    }
+    this.getNewWeather = this.getNewWeather.bind(this);
+    this.propositionClick = this.propositionClick.bind(this);
+    this.turnOffError = this.turnOffError.bind(this);
   }
 
   async componentDidMount() {
@@ -103,7 +78,7 @@ class App extends React.Component {
       if (localStorage.city) {
         //we have a city -- we call the api on that city
         let startCity = localStorage.city;
-        let weatherObj = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${startCity}&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric`);
+        let weatherObj = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${localStorage.city}&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric`);
         let weatherObjJson = await weatherObj.json();
         this.setState({weatherObj: weatherObjJson});
         this.setState({city: startCity});
@@ -135,12 +110,63 @@ class App extends React.Component {
   }
   }
 
+  handleLightModeChange(e) {
+    this.setState({lightMode: e});
+    if(localStorage) {
+      localStorage.lightMode = e;
+    }
+  }
 
+  handleInputChange(input) {
+    this.setState({input});
+  }
+
+  turnOffError() {
+    this.setState({error: 0});
+  }
+
+  async getNewWeather() {
+    try {
+    let newCity = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.input}&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric`);
+    let newCityRes = await newCity.json();
+    console.log(newCityRes);
+    if (newCityRes.cod === 200) {
+      this.setState({weatherObj: newCityRes});
+      if (localStorage) {
+        if (localStorage.city) {
+          localStorage.city = newCityRes.name;
+        }
+      }
+      this.setState({input: ""});
+    } else {
+      this.setState({input: ""});
+      this.setState({error: 1});
+    }
+
+  }
+  catch(err) {
+    console.log(err);
+  }
+  }
+
+  async propositionClick(e) {
+
+  await this.setState({input: e});
+  this.getNewWeather();
+  }
 
   render() {
+    let darkMode;
+    if(this.state.lightMode === "true") {
+      darkMode = "";
+    } else {
+      darkMode = 'dark-main';
+    }
+    console.log(this.state.lightMode);
+    console.log(darkMode);
   return (
     <div className='wrapper'>
-      <div className='main'>
+      <div className={`main ${darkMode}`}>
         <TopPart mainIcon={television}
                  lightMode={this.state.lightMode}
                  changeLightMode={this.handleLightModeChange}
@@ -150,10 +176,14 @@ class App extends React.Component {
         <InputPart handleInputChange={this.handleInputChange}
                    inputValue={this.state.input}
                    flagValue={this.state.weatherObj.sys}
+                   startSearchingNewCity={this.getNewWeather}
+                   cities={this.state.cities}
+                   propositionClick={this.propositionClick}
                    />
         <InfoPart television={television}
                   weatherObj={this.state.weatherObj}/>
         <AppInfoPart />
+        {this.state.error === 1 ? <NoCity turnOffError={this.turnOffError} /> : <div></div>}
       </div>
     </div>
   );

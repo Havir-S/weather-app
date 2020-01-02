@@ -7,6 +7,21 @@
   100% {opacity: 1;}
 }
 
+@mixin iconFadeIn {
+  animation: iconFadeInAnimation 1s forwards;
+}
+
+@keyframes iconFadeInAnimation {
+  0% {
+    opacity: 0;
+    transform: rotate(-120deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
 @mixin lightModeAnim {
   animation: lightModeAnim .3s ease-out forwards;
 }
@@ -51,5 +66,37 @@
     opacity: 1;
     left:calc(100% + 5px);
     filter: blur(0);
+  }
+}
+
+@mixin infElAnim($time) {
+  animation: infoGridElementAnimation $time forwards ease-in-out;
+}
+
+@keyframes infoGridElementAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@mixin errorAnim {
+  animation: errorAnim 5s ease-out forwards;
+}
+
+@keyframes errorAnim {
+  0% {
+    top:-100%;
+  }
+  8% {
+    top:0;
+  }
+  92% {
+    top:0
+  }
+  100% {
+    top:-100%;
   }
 }

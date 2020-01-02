@@ -1,6 +1,17 @@
 @import '_reset.scss';
 @import '_animations.scss';
 
+$elements: 7;
+
+@for $i from 1 through $elements {
+
+	$time: $i * 0.2;
+.info-grid-element:nth-child(#{$i}) {
+	@include infElAnim(#{$time}s);
+}
+
+}
+
 $rays: 16;
 
 .checkbox {
@@ -155,8 +166,9 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 
+
 .main {
-  height: 833px;
+  height: 843px;
   display: block;
   margin: auto;
   width: 530px;
@@ -208,13 +220,12 @@ body::-webkit-scrollbar-thumb {
         width: 120px;
         margin: auto;
         transition: all .5s;
-        // opacity: 0;
-        // transform: rotate(-120deg);
+        opacity: 0;
+        transform: rotate(-120deg);
+				@include iconFadeIn;
         &:hover {
-          border: 10px solid blue;
-          filter: drop-shadow(0 0 10px black);
-          opacity: 1;
-          transform: rotate(0deg);
+          filter: drop-shadow(0 0 3px black);
+					border: 5px solid lighten(orange,10%);
         }
         border-radius: 50%;
         .main-icon {
@@ -320,7 +331,7 @@ body::-webkit-scrollbar-thumb {
 				overflow: auto;
 				overflow-y: scroll;
         transition: all .3s;
-				display: none;
+				display: block;
         .proposition {
           cursor: pointer;
           padding: 2px 2px 7px;
@@ -336,6 +347,7 @@ body::-webkit-scrollbar-thumb {
           .proposition-span {
             font-size: 24px;
             line-height:33px;
+						cursor: pointer;
           }
         }
       }
@@ -391,7 +403,8 @@ body::-webkit-scrollbar-thumb {
     }
   }
   .info-part {
-
+		letter-spacing: .8px;
+		margin-bottom: 20px;
     .weather-description {
       text-transform: uppercase;
       font-size: 22px;
@@ -399,14 +412,20 @@ body::-webkit-scrollbar-thumb {
       @include fontBig;
       width: fit-content;
       margin: 5px auto 0;
+			color: orange;
       .weather-icon {
         width: 35px;
         vertical-align: bottom;
         position: absolute;
         top: 50%;
         transform: translate(0, -50%);
-        left: calc(100% + 5px);
       }
+			.weather-icon-right {
+				left: calc(100% + 5px);
+			}
+			.weather-icon-left {
+				right: calc(100% + 5px);
+			}
     }
     .info-scroll {
       width: 70%;
@@ -432,6 +451,10 @@ body::-webkit-scrollbar-thumb {
           align-items: center;
           background: rgba(255,255,255,.2);
           border-radius: 5px;
+
+
+
+
           .coordinates-title {
             margin: 0 0 5px;
           }
@@ -441,7 +464,8 @@ body::-webkit-scrollbar-thumb {
           .time-from-now {
             font-size: 12px;
             margin-top:5px;
-            color: #454545;
+						@include fontBig;
+            color: white;
           }
           .time-sun {
             margin-top: 3px;
@@ -480,6 +504,7 @@ body::-webkit-scrollbar-thumb {
             width: 80px;
           }
         }
+
         .sunriseSunset {
           display:flex;
           justify-content: space-around;
@@ -545,4 +570,59 @@ body::-webkit-scrollbar-thumb {
       }
     }
   }
+	@media (max-width: 530px) {
+		width: auto;
+		display: block;
+		height: 833px;
+		.top-part {
+			nav {
+				h2 {
+					margin-top: 0;
+				}
+			}
+
+		}
+	}
+}
+.dark-main {
+	background: rgb(11,44,60);
+  background: url('../imgs/circle-blues.png'), linear-gradient(0deg, rgba(3,22,32,1) 0%, rgba(55,30,78,1) 30%, rgba(49,25,70,1) 50%, rgba(46,23,66,1) 70%, rgba(53,5,54,1) 100%);
+  background-blend-mode: color-burn;
+	color: #bbb;
+	.info-part {
+		.info-scroll {
+			.info-grid-container {
+				background: rgba(55, 55, 55, 0.1);
+				.info-grid-element {
+					background: rgba(155, 155, 155, 0.1);
+					&:hover {
+						background: rgba(155, 155, 155, 0.15);
+					}
+				}
+			}
+		}
+	}
+
+.app-info-part {
+	border: 12px solid #000;
+	border-top: 0;
+	border-right: 0;
+}
+}
+.error {
+	z-index: 99;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 100%;
+	transform: translate(-50%, 0);
+	background: rgba(175,0,0,.8);
+	border: 6px solid black;
+	color: white;
+	text-shadow: 0 0 7px black;
+	@include errorAnim;
+	.error-text {
+		font-size: 25px;
+		padding: 10px;
+	}
 }
