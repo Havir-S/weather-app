@@ -2,8 +2,8 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://havir-s.github.io/weather-app/",
-  "main": "dist/index.html",
+  "homepage": "https://havir-s.github.io/weather-app/build",
+  "main": "index.html",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
