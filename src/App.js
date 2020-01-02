@@ -6,46 +6,6 @@ import InputPart from './components/input-part.js';
 import InfoPart from './components/info-part.js';
 import AppInfoPart from './components/app-info-part.js';
 import NoCity from './components/error.js';
-// https://openweathermap.org/weather-conditions TUTAJ JUZ SA IKONKI
-
-// fetch('https://raw.githubusercontent.com/Havir-S/weather-app/master/locations.json')
-//   .then(res => res.json())
-//   .then(res => {
-//     console.log(res.cities);
-//   });
-
-  // fetch('http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric')
-  //   .then(res => res.json())
-  //   .then(res => console.log(res));
-
-  // function checkLocalStorage(searchedValue) {
-  //   if(localStorage) {
-  //     if (localStorage.getItem(searchedValue)) {
-  //       return localStorage.getItem(searchedValue);
-  //     }
-  //   } else if(searchedValue === 'city') {
-  //     return getLondon();
-  //   }
-  // }
-
-  //   function getCities() {
-  //     let cities;
-  //   fetch('https://raw.githubusercontent.com/Havir-S/weather-app/master/locations.json')
-  //     .then(data => data.json())
-  //     .then(data => {
-  //       cities = data.cities
-  //       console.log(cities);
-  //       return cities;
-  //     })
-  //
-  // }
-
-  // async function getLondon() {
-  //   let london = await fetch('http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric');
-  //   let londonRes = await london.json();
-  //
-  //   return londonRes.name;
-  // }
 
 class App extends React.Component {
   constructor(props) {
@@ -129,7 +89,6 @@ class App extends React.Component {
     try {
     let newCity = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.input}&APPID=c67eaa7e77ad12d3669b53dc4b0112e2&units=metric`);
     let newCityRes = await newCity.json();
-    console.log(newCityRes);
     if (newCityRes.cod === 200) {
       this.setState({weatherObj: newCityRes});
       if (localStorage) {
@@ -162,11 +121,10 @@ class App extends React.Component {
     } else {
       darkMode = 'dark-main';
     }
-    console.log(this.state.lightMode);
-    console.log(darkMode);
   return (
     <div className='wrapper'>
       <div className={`main ${darkMode}`}>
+
         <TopPart mainIcon={television}
                  lightMode={this.state.lightMode}
                  changeLightMode={this.handleLightModeChange}
@@ -180,9 +138,12 @@ class App extends React.Component {
                    cities={this.state.cities}
                    propositionClick={this.propositionClick}
                    />
+
         <InfoPart television={television}
                   weatherObj={this.state.weatherObj}/>
+
         <AppInfoPart />
+        
         {this.state.error === 1 ? <NoCity turnOffError={this.turnOffError} /> : <div></div>}
       </div>
     </div>

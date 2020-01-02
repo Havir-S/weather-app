@@ -1,9 +1,6 @@
 import React from 'react';
 
 class NoCity extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.timerID = setTimeout(() => {
@@ -12,7 +9,7 @@ class NoCity extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('error disappear');
+  clearTimeout(this.timerID);
   }
 
   render() {

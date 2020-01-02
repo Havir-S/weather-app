@@ -587,8 +587,25 @@ body::-webkit-scrollbar-thumb {
 .dark-main {
 	background: rgb(11,44,60);
   background: url('../imgs/circle-blues.png'), linear-gradient(0deg, rgba(3,22,32,1) 0%, rgba(55,30,78,1) 30%, rgba(49,25,70,1) 50%, rgba(46,23,66,1) 70%, rgba(53,5,54,1) 100%);
-  background-blend-mode: color-burn;
+  background-blend-mode: darken;
 	color: #bbb;
+	.input-part {
+		.input-container {
+			.propositionsDiv {
+        .proposition {
+          &:hover {
+            background: rgba(255,255,255,1);
+          }
+          .proposition-span {
+            font-size: 24px;
+            line-height:33px;
+						color: black;
+						cursor: pointer;
+          }
+        }
+      }
+		}
+	}
 	.info-part {
 		.info-scroll {
 			.info-grid-container {
